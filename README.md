@@ -32,7 +32,9 @@ Command line options
 JSON
 ----
 URL of online JSON source to be published via MQTT.
+
 Example:  Local access to Neur.io sensor 
+
 http://192.168.88.189/current-sample 
 
 Example data:
@@ -44,7 +46,7 @@ MAP
 ---
 JSON transformation mapping using list or set comprehension.
 
-Example: neurio.txt where the original JSON is refferred to as "dataSet"
+Example: See file neurio.txt where the original JSON data is refferred to as "dataSet"
 
 [ (i['type'],i['p_W']) for i in dataSet['channels'] ]
 
@@ -54,13 +56,27 @@ Result using Example data and mapping file:
 
 
 Example usage:
---------------------
+--------------
 
 python3 json2mqtt.py --json http://192.168.88.189/current-sample --map neurio.txt --mqtt-topic neurio
 
 And resulting MQTT publishing:
 
 neurio/PHASE_A_CONSUMPTION 116
+
 neurio/PHASE_B_CONSUMPTION 80
+
 neurio/PHASE_C_CONSUMPTION 143
+
 neurio/CONSUMPTION 338
+
+
+
+production usage with PM2:
+--------------------------
+PM2: https://www.npmjs.com/package/pm2
+
+pm2 start /usr/bin/python3 --name "json2mqtt-neurio" -- /home/luba/Git/json2mqtt/json2mqtt.py --json http://192.168.88.189/current-sample --map neurio.txt --mqtt-topic neurio
+
+pm2 save
+

@@ -24,6 +24,9 @@ Command line options
       --mqtt-topic MQTT_TOPIC
                             Topic prefix to be used for subscribing/publishing.
                             Defaults to "json"
+      --frequency FREQUENCY
+                            How often is the JSON source checked for the changes, in seconds. Only integers. Defaults to 1 
+
 
 JSON
 ----
@@ -37,17 +40,21 @@ Example data:
 MAP
 ---
 JSON transformation mapping using list or set comprehension.
+
 Example: neurio.txt
 
 [ (i['type'],i['p_W']) for i in dataSet['channels'] ]
 
-Result using Example data and mapping file:  
+Result using Example data and mapping file: 
+
 [('PHASE_A_CONSUMPTION', 116), ('PHASE_B_CONSUMPTION', 80), ('PHASE_C_CONSUMPTION', 143), ('CONSUMPTION', 338)]
 
 Final usage Example:
+
 python3 json2mqtt.py --json http://192.168.88.189/current-sample --map neurio.txt --mqtt-topic neurio
 
 And resulting MQTT publishing:
+
 neurio/PHASE_A_CONSUMPTION 116
 neurio/PHASE_B_CONSUMPTION 80
 neurio/PHASE_C_CONSUMPTION 143

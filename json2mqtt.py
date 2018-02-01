@@ -24,7 +24,7 @@ parser.add_argument('--mqtt-port', default='1883', type=int, help='MQTT server p
 parser.add_argument('--mqtt-topic', default='json', help='Topic prefix to be used for subscribing/publishing. Defaults to "modbus/"')
 parser.add_argument('--json', help='URL of JSON source')
 parser.add_argument('--map', help='JSON transformation mapping using list or set comprehension')
-parser.add_argument('--frequency', default='1', help='How often is the json source checked for the changes, in seconds. Only integers')
+parser.add_argument('--frequency', default='1', help='How often is the json source checked for the changes, in seconds. Only integers. Defaults to 1')
 
 args=parser.parse_args()
 

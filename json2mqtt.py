@@ -1,4 +1,4 @@
-#
+#!/usr/bin/python3
 # json2mqtt - simple MQTT publishing of online JSON sources
 #
 # Written and (C) 2018 by Lubomir Kamensky <lubomir.kamensky@gmail.com>
@@ -19,12 +19,17 @@ import json
 from urllib import request
     
 parser = argparse.ArgumentParser(description='Bridge between JSON file and MQTT')
-parser.add_argument('--mqtt-host', default='localhost', help='MQTT server address. Defaults to "localhost"')
-parser.add_argument('--mqtt-port', default='1883', type=int, help='MQTT server port. Defaults to 1883')
-parser.add_argument('--mqtt-topic', default='json', help='Topic prefix to be used for subscribing/publishing. Defaults to "modbus/"')
+parser.add_argument('--mqtt-host', default='localhost', help='MQTT server address. \
+                     Defaults to "localhost"')
+parser.add_argument('--mqtt-port', default='1883', type=int, help='MQTT server port. \
+                    Defaults to 1883')
+parser.add_argument('--mqtt-topic', default='json', help='Topic prefix to be used for \
+                    subscribing/publishing. Defaults to "modbus/"')
 parser.add_argument('--json', help='URL of JSON source')
-parser.add_argument('--map', help='JSON transformation mapping using list or set comprehension')
-parser.add_argument('--frequency', default='1', help='How often is the json source checked for the changes, in seconds. Only integers. Defaults to 1')
+parser.add_argument('--map', help='JSON transformation mapping using list or set \
+                    comprehension')
+parser.add_argument('--frequency', default='1', help='How often is the json source \
+                    checked for the changes, in seconds. Only integers. Defaults to 1')
 
 args=parser.parse_args()
 
@@ -41,19 +46,20 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
+lastValue = {}
+
 class Element:
     def __init__(self,row):
         self.topic=row[0]
         self.value=row[1]
-        self.lastval=None
 
     def publish(self):
         try:
-            if self.value!=self.lastval:
-                self.lastval=self.value
+            if self.value!=lastValue.get(self.topic,0):
+                lastValue[self.topic] = self.value
                 fulltopic=topic+self.topic
                 logging.info("Publishing " + fulltopic)
-                mqc.publish(fulltopic,self.lastval,qos=0,retain=True)
+                mqc.publish(fulltopic,self.value,qos=0,retain=True)
 
         except Exception as exc:
             logging.error("Error reading "+self.topic+": %s", exc)

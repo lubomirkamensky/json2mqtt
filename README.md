@@ -25,7 +25,8 @@ Command line options
                             Topic prefix to be used for subscribing/publishing.
                             Defaults to "json"
       --frequency FREQUENCY
-                            How often is the JSON source checked for the changes, in seconds. Only integers. Defaults to 1 
+                            How often is the JSON source checked for the changes,
+                            in seconds. Only integers. Defaults to 1 
 
 
 JSON
@@ -35,13 +36,15 @@ Example:  Local access to Neur.io sensor
 http://192.168.88.189/current-sample 
 
 Example data:
+
 {"sensorId":"0x0000C47F510180C9","timestamp":"2018-02-01T17:12:30Z","channels":[{"type":"PHASE_A_CONSUMPTION","ch":1,"eImp_Ws":4853108845,"eExp_Ws":1792905,"p_W":116,"q_VAR":-72,"v_V":239.253},{"type":"PHASE_B_CONSUMPTION","ch":2,"eImp_Ws":4641133741,"eExp_Ws":3195780,"p_W":80,"q_VAR":-85,"v_V":232.178},{"type":"PHASE_C_CONSUMPTION","ch":3,"eImp_Ws":6804918537,"eExp_Ws":15110144,"p_W":143,"q_VAR":-110,"v_V":236.615},{"type":"CONSUMPTION","ch":4,"eImp_Ws":16293113391,"eExp_Ws":14269510,"p_W":338,"q_VAR":-267,"v_V":236.015}],"cts":[{"ct":1,"p_W":116,"q_VAR":-72,"v_V":239.253},{"ct":2,"p_W":80,"q_VAR":-85,"v_V":232.178},{"ct":3,"p_W":143,"q_VAR":-110,"v_V":236.615},{"ct":4,"p_W":0,"q_VAR":0,"v_V":239.210}]}
+
 
 MAP
 ---
 JSON transformation mapping using list or set comprehension.
 
-Example: neurio.txt
+Example: neurio.txt where the original JSON is refferred to as "dataSet"
 
 [ (i['type'],i['p_W']) for i in dataSet['channels'] ]
 
@@ -49,7 +52,9 @@ Result using Example data and mapping file:
 
 [('PHASE_A_CONSUMPTION', 116), ('PHASE_B_CONSUMPTION', 80), ('PHASE_C_CONSUMPTION', 143), ('CONSUMPTION', 338)]
 
-Final usage Example:
+
+Example usage:
+--------------------
 
 python3 json2mqtt.py --json http://192.168.88.189/current-sample --map neurio.txt --mqtt-topic neurio
 

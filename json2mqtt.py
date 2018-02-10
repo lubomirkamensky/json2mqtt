@@ -17,6 +17,7 @@ import sys
 import signal
 import json
 from urllib import request
+import os
     
 parser = argparse.ArgumentParser(description='Bridge between JSON file and MQTT')
 parser.add_argument('--mqtt-host', default='localhost', help='MQTT server address. \
@@ -70,11 +71,11 @@ try:
     mqc.loop_start()
 
     while True:
-        source = request.urlopen(args.json)
+        source = request.urlopen(args.json,timeout=2)
         dataSet = json.loads(source.read())
         data = eval(open(args.map).read())
         elements=[]
-
+        
         for row in data:
             e=Element(row)
             elements.append(e)

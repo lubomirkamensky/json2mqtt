@@ -11,7 +11,7 @@ Dependencies
 
 Command line options
 --------------------
-    usage: jason2mqtt.py [-h] [--mqtt-host MQTT_HOST]  [--mqtt-port MQTT_PORT]
+    usage: json2mqtt.py [-h] [--mqtt-host MQTT_HOST]  [--mqtt-port MQTT_PORT]
                          [--mqtt-topic MQTT_TOPIC] --json JSON
                          --map MAP [--frequency FREQUENCY ]
     

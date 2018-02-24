@@ -31,6 +31,8 @@ parser.add_argument('--map', help='JSON transformation mapping using list or set
                     comprehension')
 parser.add_argument('--frequency', default='1', help='How often is the json source \
                     checked for the changes, in seconds. Only integers. Defaults to 1')
+parser.add_argument('--only-changes', default='False', help='When set to True then \
+                    only changed values are published')
 
 args=parser.parse_args()
 
@@ -56,11 +58,11 @@ class Element:
 
     def publish(self):
         try:
-            if self.value!=lastValue.get(self.topic,0):
+            if self.value!=lastValue.get(self.topic,0) or args.only_changes == 'False':
                 lastValue[self.topic] = self.value
                 fulltopic=topic+self.topic
                 logging.info("Publishing " + fulltopic)
-                mqc.publish(fulltopic,self.value,qos=0,retain=False)
+                mqc.publish(fulltopic,self.value,qos=2,retain=False)
 
         except Exception as exc:
             logging.error("Error reading "+self.topic+": %s", exc)
@@ -80,8 +82,8 @@ try:
             e=Element(row)
             elements.append(e)
 
-            for e in elements:
-                e.publish()
+        for e in elements:
+            e.publish()
         
         time.sleep(int(frequency))
 

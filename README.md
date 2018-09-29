@@ -76,7 +76,7 @@ production usage with PM2:
 --------------------------
 PM2: https://www.npmjs.com/package/pm2
 
-pm2 start /usr/bin/python3 --name "json2mqtt-neurio" -- /home/luba/Git/json2mqtt/json2mqtt.py --json http://192.168.88.189/current-sample --map neurio.txt --mqtt-topic neurio
+pm2 start /usr/bin/python3 --name "json2mqtt-neurio" -- /home/luba/Git/json2mqtt/json2mqtt.py --json http://192.168.88.189/current-sample --map /home/luba/Git/json2mqtt/neurio.txt --mqtt-topic neurio
 
 pm2 save
 

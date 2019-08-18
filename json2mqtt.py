@@ -29,8 +29,8 @@ parser.add_argument('--mqtt-topic', default='json', help='Topic prefix to be use
 parser.add_argument('--json', help='URL of JSON source')
 parser.add_argument('--map', help='JSON transformation mapping using list or set \
                     comprehension')
-parser.add_argument('--frequency', default='1', help='How often is the json source \
-                    checked for the changes, in seconds. Only integers. Defaults to 1')
+parser.add_argument('--frequency', default='5', help='How often is the json source \
+                    checked for the changes, in seconds. Only integers. Defaults to 5')
 parser.add_argument('--only-changes', default='False', help='When set to True then \
                     only changed values are published')
 

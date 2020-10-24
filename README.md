@@ -17,8 +17,8 @@ python3 json2mqtt.py --configuration neurio.ini
 
 Example use pm2 usage
 ---------------------
-pm2 start /usr/bin/python3 --name "json2mqtt-davis" -- /home/pi/json2mqtt/json2mqtt.py --configuration davis.ini
+pm2 start /usr/bin/python3 --name "json2mqtt-davis" -- /home/luba/git/json2mqtt/json2mqtt.py --configuration davis.ini
 
-pm2 start /usr/bin/python3 --name "json2mqtt-neurio" -- /home/pi/json2mqtt/json2mqtt.py --configuration neurio.ini
+pm2 start /usr/bin/python3 --name "json2mqtt-neurio" -- /home/luba/git/json2mqtt/json2mqtt.py --configuration neurio.ini
 
 pm2 save

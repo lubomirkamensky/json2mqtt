@@ -78,7 +78,6 @@ try:
 
         for e in elements:
             e.publish()
-            time.sleep(0.05)
         
         time.sleep(int(frequency))
 
